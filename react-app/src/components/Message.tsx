@@ -1,16 +1,31 @@
-import * as React from 'react';
-import "./Message.css"
+import React from 'react';
 
-interface Props {
-    name?: string;
+export interface MessageInterface {
+    id: string
+    userName: string;
+    text: string;
 }
 
-const Message: React.SFC<Props> = (props: Props) => (
-    <h1 className="Message-color">My app name: {props.name}</h1>
-);
 
-Message.defaultProps = {
-    name: 'React',
-};
+interface MessageProps {
+    message: MessageInterface
+}
 
-export default Message;
+export const Message: React.FC<MessageProps> = ({message}) => {
+    let messageClass: string = "list-group-item my-2 text-white";
+    (message.userName === ('робот') || message.userName === ('инструкция от робота'))? messageClass += " bg-primary" : messageClass += " bg-success";
+    return (
+        <li key={message.id} className={messageClass}>
+            <div className="d-flex justify-content-between">
+                <h5 className="mb-1 me-4">{message.userName}</h5>
+                <small>{new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()}</small>
+            </div>
+            <p className="mb-1">{message.text}</p>
+        </li>
+    )
+
+    // (<li className={messageClass}
+    //     key={message.id}>
+    //     {message.text}
+    // </li>)
+}
