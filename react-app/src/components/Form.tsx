@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import "./Form.css"
 import {nanoid} from "nanoid";
-import {MessageInterface} from "./Message";
 
 
 interface Props {
@@ -13,15 +12,11 @@ export const Form: React.FC<Props> = ({messageAdd, messages}) => {
     const [userName, setUserName] = useState<string>('')
     const [message, setMessage] = useState<string>('')
     const handleSubmit = (event: any) => {
-        const messageList: Array<MessageInterface> = [...messages];
-        messageList.push({ id:nanoid(), userName: userName, text: message});
-        messageAdd(messageList);
+        messageAdd({ id:nanoid(), userName: userName, text: message});
         setUserName('');
         setMessage('');
         event.preventDefault();
     }
-
-
 
     const addMessage = (event: any) => {
         setMessage(event.target.value );

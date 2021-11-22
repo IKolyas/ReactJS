@@ -6,7 +6,6 @@ export interface MessageInterface {
     text: string;
 }
 
-
 interface MessageProps {
     message: MessageInterface
 }
@@ -23,9 +22,4 @@ export const Message: React.FC<MessageProps> = ({message}) => {
             <p className="mb-1">{message.text}</p>
         </li>
     )
-
-    // (<li className={messageClass}
-    //     key={message.id}>
-    //     {message.text}
-    // </li>)
 }

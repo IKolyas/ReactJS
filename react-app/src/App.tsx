@@ -10,8 +10,8 @@ function App() {
 
     const [messages, setMessage] = useState<Array<MessageInterface>>([{ id:nanoid(), userName: 'инструкция от робота', text: robotStartText}])
 
-    const addMessage = (messages: Array<MessageInterface>) => {
-        setMessage(messages)
+    const addMessage = (message: MessageInterface) => {
+        setMessage(messages => [...messages, message])
     }
 
     useEffect(() => {
@@ -20,9 +20,7 @@ function App() {
         if (isRobot) {
             setTimeout(() => {
                 const robotMessage: string = `Подождите, ${messages[messages.length - 1].userName}, я уже ищу ответ на Ваш вопрос ...`
-                const messageList: Array<MessageInterface> = [...messages]
-                messageList.push({ id:nanoid(), userName: "робот", text: robotMessage})
-                setMessage(messageList)
+                setMessage(messages => [...messages, { id:nanoid(), userName: "робот", text: robotMessage}])
             }, 3000)
         }
     }, [messages]);
