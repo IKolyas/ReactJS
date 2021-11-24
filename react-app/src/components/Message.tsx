@@ -1,4 +1,5 @@
 import React from 'react';
+import {ListItem, ListItemAvatar, ListItemText, Typography, Avatar} from '@mui/material';
 
 export interface MessageInterface {
     id: string
@@ -14,12 +15,28 @@ export const Message: React.FC<MessageProps> = ({message}) => {
     let messageClass: string = "list-group-item my-2 text-white";
     (message.userName === ('робот') || message.userName === ('инструкция от робота'))? messageClass += " bg-primary" : messageClass += " bg-success";
     return (
-        <li key={message.id} className={messageClass}>
-            <div className="d-flex justify-content-between">
-                <h5 className="mb-1 me-4">{message.userName}</h5>
-                <small>{new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()}</small>
-            </div>
-            <p className="mb-1">{message.text}</p>
-        </li>
+            <ListItem alignItems="flex-start"
+                      key={message.id}
+                      className={messageClass}
+            >
+                <ListItemAvatar>
+                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                </ListItemAvatar>
+                <ListItemText
+                    primary={message.userName}
+                    secondary={
+                        <React.Fragment>
+                            <Typography
+                                sx={{ display: 'inline' }}
+                                component="span"
+                                variant="body2"
+                                color="text.primary"
+                            >{new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()}
+                            </Typography>
+                             - {message.text}
+                        </React.Fragment>
+                    }
+                />
+            </ListItem>
     )
 }

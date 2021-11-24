@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import "./Form.css"
 import {nanoid} from "nanoid";
-
+import {Button, Stack, TextField} from '@mui/material';
 
 interface Props {
     messages: Array<any>;
@@ -9,8 +9,8 @@ interface Props {
 }
 
 export const Form: React.FC<Props> = ({messageAdd, messages}) => {
-    const [userName, setUserName] = useState<string>('')
-    const [message, setMessage] = useState<string>('')
+    const [userName, setUserName] = useState<string | undefined>('')
+    const [message, setMessage] = useState<string | undefined>('')
     const handleSubmit = (event: any) => {
         messageAdd({ id:nanoid(), userName: userName, text: message});
         setUserName('');
@@ -27,17 +27,53 @@ export const Form: React.FC<Props> = ({messageAdd, messages}) => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div className="mb-3">
-                <label htmlFor="name" className="form-label">User Name</label>
-                <input type="text" className="form-control" value={userName} onChange={addUserName}/>
-            </div>
-            <div className="mb-3">
-                <label htmlFor="message" className="form-label">Message</label>
-                <input type="text" className="form-control" value={message} onChange={addMessage}/>
-            </div>
-            <button type="submit" className="btn btn-primary" onChange={addMessage}>Submit</button>
-        </form>
+        <Stack
+            className="Form_inputs"
+            component="form"
+            sx={{
+                width: '100%',
+                justifyContent: 'center'
+            }}
+            spacing={2}
+            noValidate
+            autoComplete="off"
+            bgcolor="background.primary"
+            direction="row"
+        >
+            <TextField
+                className="TextField"
+                autoFocus
+                color="warning"
+                label="Имя"
+                id="filled-hidden-label-small"
+                variant="filled"
+                size="small"
+                value={userName}
+                onChange={addUserName}
+                sx={{
+                    width: '15%'
+                }}
+            />
+            <TextField
+                label="Сообщение"
+                id="filled-hidden-label-small"
+                variant="filled"
+                size="small"
+                value={message}
+                onChange={addMessage}
+                sx={{
+                    width: '50%',
+                }}
+            />
+            <Button variant="contained"
+                    color="success"
+                    onClick={handleSubmit}
+                    sx={{
+                        width: '25%',
+                    }}
+            >Отправить</Button>
+        </Stack>
+
     )
 };
 
