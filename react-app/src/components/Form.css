@@ -1,3 +1,8 @@
-.Message-color {
-    color: #f1b500;
+.Form_inputs {
+    bottom: 0;
+    margin-bottom: 50px;
+    background-color: wheat;
+    border-radius: 15px;
+    padding: 15px 0 15px 0;
+    width: 100%;
 }

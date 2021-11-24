@@ -3,6 +3,8 @@ import './App.css';
 import {Form} from "./components/Form";
 import {MessageInterface, Message} from "./components/Message";
 import {nanoid} from "nanoid";
+import {List, Container, Box, IconButton, ListItem, ListItemText} from '@mui/material';
+import CommentIcon from '@mui/icons-material/Comment';
 
 
 function App() {
@@ -25,14 +27,33 @@ function App() {
         }
     }, [messages]);
     return (
-    <div className="App">
-      <header className="App-header container">
-          <Form messageAdd={addMessage} messages={messages}/>
-              <ul className="list-group d-flex flex-column align-items-end p-5 w-100" id="message-list">
-                  {messages.map(message => <Message key={message.id} message={message}/>)}
-              </ul>
-      </header>
-    </div>
+    <Container sx={{ display: "flex" }}>
+        <Box sx={{ width: "30%", bgcolor: 'success.main' }}>
+            <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'success.main' }}>
+                {[1, 2, 3].map((value) => (
+                    <ListItem
+                        key={value}
+                        disableGutters
+                        secondaryAction={
+                            <IconButton>
+                                <CommentIcon />
+                            </IconButton>
+                        }
+                    >
+                        <ListItemText primary={`Чат № ${value}`} />
+                    </ListItem>
+                ))}
+            </List>
+        </Box>
+        <Box sx={{ width: "70%", backgroundColor: 'primary.dark'}}>
+            <div className="App">
+                <List sx={{ width: '100%', bgcolor: 'success.main' }}>
+                    {messages.map(message => <Message key={message.id} message={message}/>)}
+                </List>
+                <Form messageAdd={addMessage} messages={messages}/>
+            </div>
+        </Box>
+    </Container>
   );
 }
 
