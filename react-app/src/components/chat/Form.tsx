@@ -1,14 +1,13 @@
 import React, {useState} from 'react';
-import "./Form.css"
+import "../styles/Chat.css"
 import {nanoid} from "nanoid";
 import {Button, Stack, TextField} from '@mui/material';
 
 interface Props {
-    messages: Array<any>;
     messageAdd: (messages: any) => void
 }
 
-export const Form: React.FC<Props> = ({messageAdd, messages}) => {
+export const Form: React.FC<Props> = ({messageAdd}) => {
     const [userName, setUserName] = useState<string | undefined>('')
     const [message, setMessage] = useState<string | undefined>('')
     const handleSubmit = (event: any) => {
