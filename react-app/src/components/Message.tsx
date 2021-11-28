@@ -1,5 +1,6 @@
 import React from 'react';
 import {ListItem, ListItemAvatar, ListItemText, Typography, Avatar} from '@mui/material';
+import "./styles/Message.css"
 
 export interface MessageInterface {
     id: string
@@ -12,12 +13,12 @@ interface MessageProps {
 }
 
 export const Message: React.FC<MessageProps> = ({message}) => {
-    let messageClass: string = "list-group-item my-2 text-white";
-    (message.userName === ('робот') || message.userName === ('инструкция от робота'))? messageClass += " bg-primary" : messageClass += " bg-success";
+    let IsRobot = (message.userName === ('робот') || message.userName === ('инструкция от робота'));
     return (
             <ListItem alignItems="flex-start"
                       key={message.id}
-                      className={messageClass}
+                      className={(IsRobot ? "RobotMessage" :  "Message")}
+                      sx={{mb: 2, bgcolor: 'success.main'}}
             >
                 <ListItemAvatar>
                     <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
