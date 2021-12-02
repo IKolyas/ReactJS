@@ -4,8 +4,10 @@ import {Container} from '@mui/material';
 import NavTabs from "./components/Navigate";
 import {ChatList} from "./components/ChatList";
 import Chat from "./components/chat/Chat";
-import {Profile} from "./components/Profile";
+import {Profile} from "./components/profile/Profile";
 import {nanoid} from "nanoid";
+import {Provider} from "react-redux";
+import store from './redux/store'
 
 import {
     BrowserRouter,
@@ -37,22 +39,24 @@ console.log(list)
 function App() {
 
     return (
-        <BrowserRouter>
-            <Container>
-                <header style={{display: 'flex', justifyContent: 'flex-end'}}>
-                    <nav>
-                        <NavTabs/>
-                    </nav>
-                </header>
-                <Routes>
-                    <Route index element={<ChatList list={list}/>}/>
-                    <Route path="chat" element={<Chat chatList={list}/>}>
-                        <Route path=":chatId" element={<Chat chatList={list}/>}/>
-                    </Route>
-                    <Route path="profile" element={<Profile/>}/>
-                </Routes>
-            </Container>
-        </BrowserRouter>
+        <Provider store={store}>
+            <BrowserRouter>
+                <Container>
+                    <header style={{display: 'flex', justifyContent: 'flex-end'}}>
+                        <nav>
+                            <NavTabs/>
+                        </nav>
+                    </header>
+                    <Routes>
+                        <Route index element={<ChatList list={list}/>}/>
+                        <Route path="chat" element={<Chat chatList={list}/>}>
+                            <Route path=":chatId" element={<Chat chatList={list}/>}/>
+                        </Route>
+                        <Route path="profile" element={<Profile/>}/>
+                    </Routes>
+                </Container>
+            </BrowserRouter>
+        </Provider>
     )
 }
 
